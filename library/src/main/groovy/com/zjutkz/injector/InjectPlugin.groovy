@@ -1,5 +1,7 @@
 package com.zjutkz.injector
 
+import com.android.build.gradle.AppPlugin
+import com.android.build.gradle.AppExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project;
 
