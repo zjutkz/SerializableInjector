@@ -49,7 +49,10 @@ public class InjectTransform extends Transform{
 
         def sdkDir
         Properties properties = new Properties()
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        File local = project.rootProject.file('local.properties')
+        if(local.exists()){
+            properties.load(local.newDataInputStream())
+        }
         if (System.getenv("ANDROID_HOME") != null) {
             sdkDir = System.getenv("ANDROID_HOME")
         } else {
