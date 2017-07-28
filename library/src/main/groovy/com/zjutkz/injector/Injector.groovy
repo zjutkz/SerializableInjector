@@ -12,6 +12,10 @@ public class Injector {
     private static final String SERIALIZABLE = "java.io.Serializable";
     private static ClassPool pool = ClassPool.getDefault()
 
+    public static void injectPath(String path){
+        pool.appendClassPath(path)
+    }
+
     public static void injectDir(String path, String packageName) {
         pool.appendClassPath(path)
         File dir = new File(path)
@@ -25,7 +29,7 @@ public class Injector {
 
                     int index = filePath.indexOf(packageName);
                     boolean isMyPackage = index != -1;
-                    if (isMyPackage) {
+                    if (isMyPackage && filePath.contains("/model/")) {
                         int end = filePath.length() - 6 // .class = 6
                         String className = filePath.substring(index, end).replace('\\', '.').replace('/', '.')
                         CtClass c = pool.getCtClass(className)
@@ -33,21 +37,22 @@ public class Injector {
                             c.defrost()
                         }
 
+                        CtClass seri = pool.getCtClass(SERIALIZABLE)
                         boolean hit = false
                         CtClass[] interfaces = c.getInterfaces()
                         for(CtClass interfaceClz :interfaces){
-                            if(SERIALIZABLE == interfaceClz){
+                            if(seri == interfaceClz){
                                 hit = true
                                 break
                             }
                         }
                         if(!hit){
-                            c.addInterface(pool.getCtClass(SERIALIZABLE))
+                            c.addInterface(seri)
+                            c.writeFile(path)
                         }
                     }
                 }
             }
         }
     }
-
 }
