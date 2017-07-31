@@ -16,7 +16,7 @@ public class Injector {
         pool.appendClassPath(path)
     }
 
-    public static void injectDir(String path, String packageName) {
+    public static void injectDir(String path, String packageName,String packagePattern) {
         pool.appendClassPath(path)
         File dir = new File(path)
         if (dir.isDirectory()) {
@@ -29,7 +29,7 @@ public class Injector {
 
                     int index = filePath.indexOf(packageName);
                     boolean isMyPackage = index != -1;
-                    if (isMyPackage && filePath.contains("/model/")) {
+                    if (isMyPackage && filePath.contains(packagePattern)) {
                         int end = filePath.length() - 6 // .class = 6
                         String className = filePath.substring(index, end).replace('\\', '.').replace('/', '.')
                         CtClass c = pool.getCtClass(className)

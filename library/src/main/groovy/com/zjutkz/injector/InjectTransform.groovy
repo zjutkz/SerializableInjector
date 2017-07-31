@@ -12,9 +12,6 @@ import org.gradle.api.Project
 
 
 public class InjectTransform extends Transform{
-
-    private static final String BASE_PACKAGE = "com/vdian/tuwen"
-
     Project project
 
     public InjectTransform(Project project) {
@@ -61,9 +58,12 @@ public class InjectTransform extends Transform{
         def androidJar = "${sdkDir}/platforms/${project.android.compileSdkVersion}/android.jar"
         Injector.injectPath(androidJar)
 
+        String packageName = project.injectorConfig.packageName
+        String packagePattern = project.injectorConfig.packagePattern
+
         inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput directoryInput ->
-                Injector.injectDir(directoryInput.file.absolutePath,BASE_PACKAGE)
+                Injector.injectDir(directoryInput.file.absolutePath,packageName,packagePattern)
                 def dest = outputProvider.getContentLocation(directoryInput.name,
                         directoryInput.contentTypes, directoryInput.scopes,
                         Format.DIRECTORY)
