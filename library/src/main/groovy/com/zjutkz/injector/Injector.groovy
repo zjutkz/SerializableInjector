@@ -40,9 +40,12 @@ public class Injector {
                         }
 
                         CtClass seri = pool.getCtClass(SERIALIZABLE)
+                        System.out.println("seri: " + seri)
                         boolean hit = false
                         CtClass[] interfaces = c.getInterfaces()
+                        System.out.println("interfaces' size: " + interfaces.length)
                         for(CtClass interfaceClz :interfaces){
+                            System.out.println("interfaceClz: " + interfaceClz + " " + (seri == interfaceClz))
                             if(seri == interfaceClz){
                                 hit = true
                                 break
