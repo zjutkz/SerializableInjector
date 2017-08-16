@@ -17,7 +17,7 @@ public class Injector {
     }
 
     public static void injectDir(String path, String packageName,String packagePattern) {
-        pool.appendClassPath(path)
+        injectPath(path)
         File dir = new File(path)
         if (dir.isDirectory()) {
             dir.eachFileRecurse { File file ->
@@ -27,11 +27,13 @@ public class Injector {
                         && !filePath.contains('R.class')
                         && !filePath.contains("BuildConfig.class")) {
 
+                    System.out.println("filePath: " + filePath + " packageName: " + packageName + " packagePattern: " + packagePattern)
                     int index = filePath.indexOf(packageName);
                     boolean isMyPackage = index != -1;
                     if (isMyPackage && filePath.contains(packagePattern)) {
                         int end = filePath.length() - 6 // .class = 6
                         String className = filePath.substring(index, end).replace('\\', '.').replace('/', '.')
+                        System.out.println("className: " + className)
                         CtClass c = pool.getCtClass(className)
                         if (c.isFrozen()) {
                             c.defrost()
@@ -47,6 +49,7 @@ public class Injector {
                             }
                         }
                         if(!hit){
+                            System.out.println("====== not hit ======")
                             c.addInterface(seri)
                             c.writeFile(path)
                         }

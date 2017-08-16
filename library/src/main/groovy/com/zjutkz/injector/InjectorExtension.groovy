@@ -6,6 +6,6 @@ package com.zjutkz.injector;
 
 public class InjectorExtension {
 
-    public String packageName = "com.vdian.tuwen"
-    public String packagePattern = "/model/"
+    public String packageName
+    public String packagePattern
 }
