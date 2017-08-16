@@ -17,7 +17,6 @@ public class Injector {
     }
 
     public static void injectDir(String path, String packageName,String packagePattern) {
-        pool.clearImportedPackages()
         injectPath(path)
         File dir = new File(path)
         if (dir.isDirectory()) {
@@ -56,6 +55,7 @@ public class Injector {
                             System.out.println("====== not hit ======")
                             c.addInterface(seri)
                             c.writeFile(path)
+                            c.detach()
                         }
                     }
                 }
