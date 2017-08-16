@@ -8,7 +8,7 @@ dependencies {
     compile "com.android.tools.build:gradle:2.1.0"
     compile 'org.aspectj:aspectjtools:1.8.6'
     compile 'org.aspectj:aspectjrt:1.8.6'
-    compile 'org.javassist:javassist:3.18.1-GA'
+    compile 'org.javassist:javassist:3.20.0-GA'
 }
 
 repositories {
