@@ -1,10 +1,6 @@
 apply plugin: 'com.android.library'
 
 apply plugin: 'serializable-injector-transform'
-injectorConfig {
-    packageName = "com.vian.tuwen"
-    packagePattern = "/model/"
-}
 
 android {
     compileSdkVersion 26
