@@ -12,10 +12,13 @@ import org.gradle.api.Project
 
 
 public class InjectTransform extends Transform{
+
     Project project
+    InjectorExtension injectorExtension;
 
     public InjectTransform(Project project) {
         this.project = project
+        injectorExtension = project.getExtensions().findByType(InjectorExtension.class)
     }
 
     @Override
@@ -58,8 +61,8 @@ public class InjectTransform extends Transform{
         def androidJar = "${sdkDir}/platforms/${project.android.compileSdkVersion}/android.jar"
         Injector.injectPath(androidJar)
 
-        String packageName = project.injectorConfig.packageName
-        String packagePattern = project.injectorConfig.packagePattern
+        String packageName = injectorExtension.packageName
+        String packagePattern = injectorExtension.packagePattern
 
         inputs.each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput directoryInput ->

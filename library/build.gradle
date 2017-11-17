@@ -14,8 +14,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-group='com.zjutkz.gradle.plugin'
-version='0.0.1'
-
-apply from: '../library/bintray.gradle'
