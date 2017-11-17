@@ -19,6 +19,7 @@ public class Injector {
     public static void injectDir(String path, String packageName,String packagePattern) {
         injectPath(path)
         File dir = new File(path)
+        println("inject dir: " + packagePattern)
         if (dir.isDirectory()) {
             dir.eachFileRecurse { File file ->
                 String filePath = file.absolutePath

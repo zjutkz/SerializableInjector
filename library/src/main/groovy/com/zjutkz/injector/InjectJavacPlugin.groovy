@@ -30,7 +30,9 @@ public class InjectJavacPlugin implements Plugin<Project> {
             JavaCompile javaCompile = (JavaCompile) (variant.hasProperty('javaCompiler') ? variant.javaCompiler : variant.javaCompile)
             javaCompile.doLast {
                 InjectorExtension injectorExtension = project.getExtensions().findByType(InjectorExtension.class)
-                Injector.injectDir(javaCompile.getDestinationDir(),injectorExtension.packageName,injectorExtension.packagePattern)
+                println("packageName: " + injectorExtension.packageName)
+                println("packagePattern: " + injectorExtension.packagePattern)
+                Injector.injectDir(javaCompile.getDestinationDir().toString(),injectorExtension.packageName,injectorExtension.packagePattern)
             }
         }
     }

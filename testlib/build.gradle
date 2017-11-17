@@ -1,6 +1,10 @@
 apply plugin: 'com.android.library'
 
 apply plugin: 'serializable-injector-transform'
+injectorConfig {
+    packageName = "com/github/zjutkz/testlib"
+    packagePattern = "/model/"
+}
 
 android {
     compileSdkVersion 26
