@@ -39,6 +39,7 @@ public class InjectJavacPlugin implements Plugin<Project> {
             sdkDir = properties.getProperty('sdk.dir')
         }
         def androidJar = "${sdkDir}/platforms/${project.android.compileSdkVersion}/android.jar"
+        println("android sdk version: " + project.android.compileSdkVersion)
         Injector.injectPath(androidJar)
 
         variants.all { variant ->
