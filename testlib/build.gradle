@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-apply plugin: 'serializable-injector-transform'
+apply plugin: 'serializable-injector-javac'
 injectorConfig {
     packageName = "com/github/zjutkz/testlib"
     packagePattern = "/model/"

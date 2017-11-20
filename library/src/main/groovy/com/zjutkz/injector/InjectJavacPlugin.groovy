@@ -26,6 +26,20 @@ public class InjectJavacPlugin implements Plugin<Project> {
             LibraryExtension android = project.extensions.getByType(LibraryExtension.class)
             variants = android.getLibraryVariants()
         }
+        def sdkDir
+        Properties properties = new Properties()
+        File local = project.rootProject.file('local.properties')
+        if(local.exists()){
+            properties.load(local.newDataInputStream())
+        }
+        if (System.getenv("ANDROID_HOME") != null) {
+            sdkDir = System.getenv("ANDROID_HOME")
+        } else {
+            sdkDir = properties.getProperty('sdk.dir')
+        }
+        def androidJar = "${sdkDir}/platforms/${project.android.compileSdkVersion}/android.jar"
+        MyInject.injectPath(androidJar)
+
         variants.all { variant ->
             JavaCompile javaCompile = (JavaCompile) (variant.hasProperty('javaCompiler') ? variant.javaCompiler : variant.javaCompile)
             javaCompile.doLast {
