@@ -26,6 +26,7 @@ public class InjectJavacPlugin implements Plugin<Project> {
             LibraryExtension android = project.extensions.getByType(LibraryExtension.class)
             variants = android.getLibraryVariants()
         }
+
         def sdkDir
         Properties properties = new Properties()
         File local = project.rootProject.file('local.properties')
@@ -38,7 +39,7 @@ public class InjectJavacPlugin implements Plugin<Project> {
             sdkDir = properties.getProperty('sdk.dir')
         }
         def androidJar = "${sdkDir}/platforms/${project.android.compileSdkVersion}/android.jar"
-        MyInject.injectPath(androidJar)
+        Injector.injectPath(androidJar)
 
         variants.all { variant ->
             JavaCompile javaCompile = (JavaCompile) (variant.hasProperty('javaCompiler') ? variant.javaCompiler : variant.javaCompile)
