@@ -16,9 +16,8 @@ public class InjectJavacPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
+        project.extensions.create("injectorConfig",InjectorExtension.class)
         project.afterEvaluate {
-            project.extensions.create("injectorConfig",InjectorExtension.class)
-
             def variants
             if (project.plugins.hasPlugin(AppPlugin)) {
                 AppExtension android = project.extensions.getByType(AppExtension.class)
